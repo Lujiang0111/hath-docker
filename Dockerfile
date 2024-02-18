@@ -10,9 +10,10 @@ RUN wget ${HATH_DOWNLOAD_URL} -O HentaiAtHome.zip && \
     echo "${HATH_DOWNLOAD_SHA256}  HentaiAtHome.zip" | sha256sum -c - || \
     { echo "SHA256 hash verification failed!" && exit 1; } && \
     unzip HentaiAtHome.zip && \
-    rm HentaiAtHome.zip autostartgui.bat HentaiAtHomeGUI.jar && \
-    mkdir -p data
+    rm HentaiAtHome.zip autostartgui.bat HentaiAtHomeGUI.jar
 
 ENV HATH_CLIENT_ID=""
 ENV HATH_CLIENT_KEY=""
-ENTRYPOINT ["sh", "-c", "echo -n ${HATH_CLIENT_ID}-${HATH_CLIENT_KEY} > data/client_login && java -jar HentaiAtHome.jar"]
+COPY start.sh .
+
+ENTRYPOINT [ "sh", "-c", "sh start.sh $HATH_CLIENT_ID $HATH_CLIENT_KEY" ]

@@ -7,17 +7,17 @@
 ### build
 
 ```shell
-docker build -t hath .
+docker build -t lujiang0111/hath .
 ```
 
 ### Run
 
 ```shell
 docker run -d \
---name hath \
--p ${PORT}:${PORT} \
--v ${HATH_PATH}:/home/hath \
+-v ${HATH_DATA_PATH}:/home/hath/data \
 -e HATH_CLIENT_ID=${HATH_CLIENT_ID} \
 -e HATH_CLIENT_KEY=${HATH_CLIENT_KEY} \
-hath
+-e HATH_PORT=${HATH_PORT} \
+-p ${HATH_PORT_BIND}:${HATH_PORT} \
+lujiang0111/hath
 ```
